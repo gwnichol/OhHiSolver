@@ -23,7 +23,7 @@ python OhHi_Phone.py <grid_size> [<number_of_games>]
 ```
 The grid size can only be one of 4, 6, 8, 10, and 12. If the number of games is not provided, this will play games until terminated.
 
-Before being used on a phone, the phone must have [OhHi](https://play.google.com/store/apps/details?id=com.q42.ohhi&hl=en_US) installed and open. The game must also be 
+Before being used on a phone, the phone must have [OhHi](https://play.google.com/store/apps/details?id=com.q42.ohhi&hl=en_US) installed and open. The game must also be open past the main menu by selecting "Free play".
 
 ## Dependencies
 
