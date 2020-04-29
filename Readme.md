@@ -25,6 +25,14 @@ The grid size can only be one of 4, 6, 8, 10, and 12. If the number of games is 
 
 Before being used on a phone, the phone must have [OhHi](https://play.google.com/store/apps/details?id=com.q42.ohhi&hl=en_US) installed and open. The game must also be open past the main menu by selecting "Free play".
 
+### Adaption for Different Phone Sizes
+
+The variables `top_left` and `bottom_right` tell coordinates for the opposite corners of the top left and bottom right tiles.
+`game_start_loc` holds 5 coordinate pairs the tell the program where to tap to select a size of 4, 6, 8, 10, or 12 respectively.
+
+Both of these variables need to be changed to adapt the program to work on a different screen size.
+
+
 ## Dependencies
 
  * Numpy
