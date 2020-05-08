@@ -3,11 +3,12 @@ import wx
 import sys
 import OhHiGame
 
+
 class OhHi_GUI(wx.Frame):
 
     def __init__(self, size):
         super(OhHi_GUI, self).__init__(None, title="OhHi")
-    
+
         self.size = size
 
         self.vbox = wx.BoxSizer(wx.VERTICAL)
@@ -16,7 +17,8 @@ class OhHi_GUI(wx.Frame):
         self.Centre()
 
     def InitUI(self):
-        self.game = OhHiGame.Solver(self.size, np.full([self.size,self.size], OhHiGame.NONE))
+        defaultBoard = np.full([self.size, self.size], OhHiGame.NONE)
+        self.game = OhHiGame.Solver(self.size, defaultBoard)
 
         self.AddMenuBar()
 
@@ -26,7 +28,8 @@ class OhHi_GUI(wx.Frame):
         for x in range(self.size):
             for y in range(self.size):
                 but = wx.Button(self, label='')
-                but.Bind(wx.EVT_BUTTON, lambda event, x=x, y=y : self.OnButtonClick(event, x, y))
+                but.Bind(wx.EVT_BUTTON, lambda event, x=x, y=y:
+                         self.OnButtonClick(event, x, y))
                 self.ButtonList.append(but)
 
         gs.AddMany([(button, 0, wx.EXPAND) for button in self.ButtonList])
@@ -37,11 +40,12 @@ class OhHi_GUI(wx.Frame):
         gameMenu = wx.Menu()
         solveItem = gameMenu.Append(-1, "&Solve", "Solve the game board")
         gameMenu.AppendSeparator()
-        resizeGameItem = gameMenu.Append(-1, "&New Size", "Create a game with new size")
+        resizeGameItem = gameMenu.Append(-1, "&New Size",
+                                         "Create a game with new size")
         gameMenu.AppendSeparator()
         newGameItem = gameMenu.Append(-1, "&New Game", "Create a new game")
         gameMenu.AppendSeparator()
-        
+
         menuBar = wx.MenuBar()
         menuBar.Append(gameMenu, '&Game')
         self.SetMenuBar(menuBar)
@@ -50,18 +54,17 @@ class OhHi_GUI(wx.Frame):
         self.Bind(wx.EVT_MENU, self.OnNewGame, newGameItem)
         self.Bind(wx.EVT_MENU, self.OnResizeGame, resizeGameItem)
 
-
     def OnButtonClick(self, event, x, y):
         but = event.GetEventObject()
         board = self.game.board
-        if ( board[x,y] == OhHiGame.RED ):
-            board[x,y] = OhHiGame.BLUE
+        if (board[x, y] == OhHiGame.RED):
+            board[x, y] = OhHiGame.BLUE
             but.SetBackgroundColour(wx.Colour(0, 0, 255))
-        elif ( board[x,y] == OhHiGame.NONE ):
-            board[x,y] = OhHiGame.RED
+        elif (board[x, y] == OhHiGame.NONE):
+            board[x, y] = OhHiGame.RED
             but.SetBackgroundColour(wx.Colour(255, 0, 0))
-        elif ( board[x,y] == OhHiGame.BLUE ):
-            board[x,y] = OhHiGame.NONE
+        elif (board[x, y] == OhHiGame.BLUE):
+            board[x, y] = OhHiGame.NONE
             but.SetBackgroundColour(wx.NullColour)
 
     def UpdateButtonColors(self):
@@ -72,9 +75,9 @@ class OhHi_GUI(wx.Frame):
             if(color == OhHiGame.NONE):
                 but.SetBackgroundColour(wx.NullColour)
             elif(color == OhHiGame.BLUE):
-                but.SetBackgroundColour(wx.Colour(0,0,255))
+                but.SetBackgroundColour(wx.Colour(0, 0, 255))
             elif(color == OhHiGame.RED):
-                but.SetBackgroundColour(wx.Colour(255,0,0))
+                but.SetBackgroundColour(wx.Colour(255, 0, 0))
 
     def OnSolve(self, event):
         self.game.Solve()
@@ -85,7 +88,8 @@ class OhHi_GUI(wx.Frame):
         self.UpdateButtonColors()
 
     def OnResizeGame(self, event):
-        dlg = wx.TextEntryDialog(None, 'Enter a size multiple of 2', 'Enter Size')
+        dlg = wx.TextEntryDialog(None, 'Enter a size multiple of 2',
+                                 'Enter Size')
         dlg.SetValue(str(self.size))
         if (dlg.ShowModal() == wx.ID_OK):
             newSize = int(dlg.GetValue())
@@ -95,6 +99,7 @@ class OhHi_GUI(wx.Frame):
                 self.InitUI()
 
         dlg.Destroy()
+
 
 def main():
     size = 4
